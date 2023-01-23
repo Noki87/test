@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+
+# Do not execute if on CI environment
+[ -n "$CI" ] && exit 0
+
+
 protected_branches=("main master")
 current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
