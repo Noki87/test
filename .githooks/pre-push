@@ -1,12 +1,10 @@
 #!/bin/bash
-echo "Checking protected branches"
-
-protected_branch='main master'
+protected_branches=("main master")
 current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
 if [[ " ${protected_branches[*]} " =~ " ${current_branch} " ]];
 then
-    read -p "You're about to push master, is that what you intended? [y|n] " -n 1 -r < /dev/tty
+    read -p "You're about to push to ${current_branch}, is that what you intended? [y|n] " -n 1 -r < /dev/tty
     echo
     if echo $REPLY | grep -E '^[Yy]$' > /dev/null
     then
@@ -16,3 +14,4 @@ then
 else
     exit 0 # push will execute
 fi
+
